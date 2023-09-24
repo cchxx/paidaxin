@@ -62,7 +62,7 @@ class PaiDaXin ():
             else:
                 session.expect(exp)
 
-    def sendline(self, session, command, responses, timeout=-1):
+    def sendline(self, session, command, responses, timeout=-1, quiet=False):
         """
         examples of responses:
             [["Escape character is '^]'.", "",   True ],
@@ -73,13 +73,16 @@ class PaiDaXin ():
         subcmd_idx = 1
         wait_idx = 2
         sess = None
+        self.quiet = quiet
+
         if session:
             sess = session
+            sess.logfile = None if self.quiet else sys.stdout
             sess.expect(self._utf8('.*'))
             sess.sendline(command)
         else:
             sess = self._spawn(command)
-            sess.logfile = sys.stdout
+            sess.logfile = None if self.quiet else sys.stdout
 
         waiting = []
         for response in responses:
