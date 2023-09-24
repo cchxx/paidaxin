@@ -17,6 +17,13 @@ else:
     string_types = basestring
 
 
+def unicode(s, encoding):
+    if PY3:
+        return s
+    else:
+        return s.decode(encoding)
+
+
 class PaiDaXin ():
 
     def __init__(self, logger=None, unicode=True):
