@@ -44,9 +44,9 @@ class PaiDaXin ():
 
     def _spawn(self, command):
         if not self.unicode:
-            return pexpect.spawn(command)
+            return pexpect.spawn(command, env={'TERM': 'dumb'})
         else:
-            return pexpect.spawnu(command)
+            return pexpect.spawnu(command, env={'TERM': 'dumb'})
 
 
     def clear(self, session):
